@@ -1,11 +1,11 @@
 {
-  "name": "logpipe",
+  "name": "logpeek",
   "version": "0.0.1",
   "description": "Pipe mobile device logs to AI coding agents",
   "type": "module",
   "main": "./dist/bin.js",
   "bin": {
-    "logpipe": "./dist/bin.js"
+    "logpeek": "./dist/bin.js"
   },
   "files": [
     "dist",

@@ -1,11 +1,11 @@
 {
-  "name": "logpipe",
+  "name": "logpeek",
   "version": "0.0.1",
   "description": "Pipe mobile device logs to AI coding agents",
   "skills": [
     {
-      "name": "logpipe",
-      "path": "skills/logpipe/SKILL.md"
+      "name": "logpeek",
+      "path": "skills/logpeek/SKILL.md"
     }
   ]
 }

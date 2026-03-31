@@ -1,9 +1,9 @@
 ---
-name: logpipe
+name: logpeek
 description: Collect device logs from Android emulators and iOS simulators for debugging mobile apps (React Native, Flutter, native). Use when the user reports a crash, error, unexpected behavior, or when you need to understand what happened on the device during an action.
 ---
 
-# logpipe -- Device Logs for Mobile Apps
+# logpeek -- Device Logs for Mobile Apps
 
 ## When to Use
 
@@ -16,10 +16,10 @@ description: Collect device logs from Android emulators and iOS simulators for d
 ## Setup
 
 ```bash
-npm install -g logpipe
+npm install -g logpeek
 ```
 
-**Prerequisites** (run `logpipe doctor` to verify):
+**Prerequisites** (run `logpeek doctor` to verify):
 - **Android**: `adb` available, emulator booted
 - **iOS**: `xcrun simctl` available, simulator booted (macOS only)
 
@@ -29,10 +29,10 @@ Simulators/emulators only. No physical device support yet.
 
 | Command | Usage | Description |
 |---------|-------|-------------|
-| `logs` (default) | `logpipe --app <id> [options]` | Collect and display device logs |
-| `devices` | `logpipe devices` | List booted simulators/emulators |
-| `doctor` | `logpipe doctor` | Check prerequisites (node, adb, xcrun) |
-| `init` | `logpipe init` | Register as Claude Code plugin |
+| `logs` (default) | `logpeek --app <id> [options]` | Collect and display device logs |
+| `devices` | `logpeek devices` | List booted simulators/emulators |
+| `doctor` | `logpeek doctor` | Check prerequisites (node, adb, xcrun) |
+| `init` | `logpeek init` | Register as Claude Code plugin |
 
 ## Log Collection Flags
 
@@ -52,31 +52,31 @@ Simulators/emulators only. No physical device support yet.
 
 ```bash
 # Get all logs from the last 5 minutes
-logpipe --app com.example.myapp
+logpeek --app com.example.myapp
 
 # Get only error-level logs
-logpipe --app com.example.myapp --level error
+logpeek --app com.example.myapp --level error
 
 # Search for specific text in logs
-logpipe --app com.example.myapp --grep "network"
+logpeek --app com.example.myapp --grep "network"
 
 # Combine: errors mentioning "timeout" in last 2 minutes
-logpipe --app com.example.myapp --level error --grep "timeout" --last 2m
+logpeek --app com.example.myapp --level error --grep "timeout" --last 2m
 
 # Get React Native JS console logs only (-f implies --source framework)
-logpipe --app com.example.myapp -f react-native
+logpeek --app com.example.myapp -f react-native
 
 # Get Flutter framework logs only
-logpipe --app com.example.myapp -f flutter
+logpeek --app com.example.myapp -f flutter
 
 # Get logs from specific iOS simulator
-logpipe --app com.example.myapp -d "iPhone 16"
+logpeek --app com.example.myapp -d "iPhone 16"
 
 # Get last 30 seconds after reproducing a bug
-logpipe --app com.example.myapp --last 30s
+logpeek --app com.example.myapp --last 30s
 
 # Widen the window for intermittent issues
-logpipe --app com.example.myapp --last 30m -n 500
+logpeek --app com.example.myapp --last 30m -n 500
 ```
 
 ## How It Works
@@ -139,7 +139,7 @@ Have the user or agent trigger the bug on the device.
 ### Step 2: Grab logs
 
 ```bash
-logpipe --app <bundle-id> --last 1m
+logpeek --app <bundle-id> --last 1m
 ```
 
 Use `--last 1m` right after reproducing to minimize noise.

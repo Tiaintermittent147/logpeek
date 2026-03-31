@@ -1,15 +1,15 @@
-# logpipe
+# logpeek
 
 Pipe mobile device logs to AI coding agents.
 
-logpipe gives coding agents like Claude Code, Cursor, and Gemini CLI direct access to Android and iOS device logs.
+logpeek gives coding agents like Claude Code, Cursor, and Gemini CLI direct access to Android and iOS device logs.
 
 <p>
-  <a href="https://www.npmjs.com/package/logpipe"><img src="https://img.shields.io/npm/v/logpipe?style=flat-square&color=e8a23e&label=npm" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/logpeek"><img src="https://img.shields.io/npm/v/logpeek?style=flat-square&color=e8a23e&label=npm" alt="npm version" /></a>
   &nbsp;
-  <a href="https://github.com/nomanr/logpipe/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/logpipe?style=flat-square&color=c49344" alt="license" /></a>
+  <a href="https://github.com/nomanr/logpeek/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/logpeek?style=flat-square&color=c49344" alt="license" /></a>
   &nbsp;
-  <a href="https://www.npmjs.com/package/logpipe"><img src="https://img.shields.io/npm/dm/logpipe?style=flat-square&color=b8860b" alt="downloads" /></a>
+  <a href="https://www.npmjs.com/package/logpeek"><img src="https://img.shields.io/npm/dm/logpeek?style=flat-square&color=b8860b" alt="downloads" /></a>
   &nbsp;
   <img src="https://img.shields.io/badge/iOS%20%7C%20Android-e8a23e?style=flat-square&label=platform" alt="platform" />
 </p>
@@ -29,7 +29,7 @@ Ask your agent things like:
 ### 1. Install
 
 ```bash
-npm install -g logpipe
+npm install -g logpeek
 ```
 
 ### 2. Connect your agent
@@ -38,26 +38,26 @@ npm install -g logpipe
 <summary><strong>Claude Code</strong></summary>
 
 ```bash
-npx logpipe init
+npx logpeek init
 ```
 
-Registers logpipe as a Claude Code plugin. Restart Claude Code after.
+Registers logpeek as a Claude Code plugin. Restart Claude Code after.
 
 </details>
 
 <details>
 <summary><strong>Other agents</strong></summary>
 
-Any agent that runs shell commands can use logpipe. Add this to your agent's system prompt:
+Any agent that runs shell commands can use logpeek. Add this to your agent's system prompt:
 
 ```
-You have access to `logpipe` for collecting mobile device logs:
-- logpipe --app com.example.app                       # collect logs (last 5m)
-- logpipe --app com.example.app --level error          # errors only
-- logpipe --app com.example.app -f react-native        # React Native logs only
-- logpipe --app com.example.app --grep "network"       # search logs
-- logpipe --app com.example.app --last 30s             # narrow time window
-- logpipe devices                                      # list connected devices
+You have access to `logpeek` for collecting mobile device logs:
+- logpeek --app com.example.app                       # collect logs (last 5m)
+- logpeek --app com.example.app --level error          # errors only
+- logpeek --app com.example.app -f react-native        # React Native logs only
+- logpeek --app com.example.app --grep "network"       # search logs
+- logpeek --app com.example.app --last 30s             # narrow time window
+- logpeek devices                                      # list connected devices
 ```
 
 </details>
@@ -65,7 +65,7 @@ You have access to `logpipe` for collecting mobile device logs:
 ### 3. Verify
 
 ```bash
-npx logpipe doctor
+npx logpeek doctor
 ```
 
 Checks that `adb` (Android) and `xcrun` (iOS) are available and ready.
@@ -74,17 +74,17 @@ Checks that `adb` (Android) and `xcrun` (iOS) are available and ready.
 
 ```bash
 # Collect logs (default command)
-logpipe --app com.example.app
-logpipe                                          # interactive device & app picker
+logpeek --app com.example.app
+logpeek                                          # interactive device & app picker
 
 # List connected devices
-logpipe devices
+logpeek devices
 
 # Check prerequisites
-logpipe doctor
+logpeek doctor
 
 # Register Claude Code plugin
-logpipe init
+logpeek init
 ```
 
 ## Flags
@@ -107,25 +107,25 @@ logpipe init
 
 ```bash
 # All logs from last 5 minutes
-logpipe --app com.example.app
+logpeek --app com.example.app
 
 # Errors only, last 30 seconds
-logpipe --app com.example.app --level error --last 30s
+logpeek --app com.example.app --level error --last 30s
 
 # React Native JS logs only (-f implies --source framework)
-logpipe --app com.example.app -f react-native
+logpeek --app com.example.app -f react-native
 
 # Search for network-related errors
-logpipe --app com.example.app --grep "network" --level error
+logpeek --app com.example.app --grep "network" --level error
 
 # Target a specific device
-logpipe --app com.example.app -d "iPhone 16"
+logpeek --app com.example.app -d "iPhone 16"
 
 # Combine framework filter with grep
-logpipe --app com.example.app -f react-native --grep "inventory" --level error
+logpeek --app com.example.app -f react-native --grep "inventory" --level error
 
 # Widen the window for intermittent issues
-logpipe --app com.example.app --last 30m -n 500
+logpeek --app com.example.app --last 30m -n 500
 ```
 
 ## Log Output

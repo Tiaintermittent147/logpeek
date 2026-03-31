@@ -21,7 +21,7 @@ const pkg = require('../package.json');
 export function createProgram(): Command {
   const program = new Command();
   program
-    .name('logpipe')
+    .name('logpeek')
     .description('Pipe mobile device logs to AI coding agents')
     .version(pkg.version)
     .option('--verbose', 'enable debug logging')
@@ -113,7 +113,7 @@ export function createProgram(): Command {
 
   program
     .command('init')
-    .description('Register logpipe with AI coding tools')
+    .description('Register logpeek with AI coding tools')
     .action(() => {
       const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
       const pluginSource = join(packageRoot, 'logpipe-plugin');
@@ -125,21 +125,21 @@ export function createProgram(): Command {
       }
 
       const pluginsDir = join(homedir(), '.claude', 'plugins');
-      const logpipePluginDir = join(pluginsDir, 'logpipe');
+      const logpeekPluginDir = join(pluginsDir, 'logpeek');
       const registryPath = join(pluginsDir, 'installed_plugins.json');
 
       mkdirSync(pluginsDir, { recursive: true });
 
-      if (existsSync(logpipePluginDir)) {
-        try { unlinkSync(logpipePluginDir); } catch {
-          console.error(`Could not remove existing ${logpipePluginDir}. Remove it manually and retry.`);
+      if (existsSync(logpeekPluginDir)) {
+        try { unlinkSync(logpeekPluginDir); } catch {
+          console.error(`Could not remove existing ${logpeekPluginDir}. Remove it manually and retry.`);
           process.exitCode = 1;
           return;
         }
       }
-      symlinkSync(pluginSource, logpipePluginDir);
+      symlinkSync(pluginSource, logpeekPluginDir);
 
-      const cacheDir = join(pluginsDir, 'cache', 'local', 'logpipe');
+      const cacheDir = join(pluginsDir, 'cache', 'local', 'logpeek');
       if (existsSync(cacheDir)) {
         rmSync(cacheDir, { recursive: true, force: true });
       }
@@ -149,16 +149,16 @@ export function createProgram(): Command {
         registry = JSON.parse(readFileSync(registryPath, 'utf-8'));
       } catch {}
 
-      registry.plugins['logpipe@local'] = [{
+      registry.plugins['logpeek@local'] = [{
         scope: 'user',
-        installPath: logpipePluginDir,
+        installPath: logpeekPluginDir,
         version: pkg.version,
         installedAt: new Date().toISOString(),
         lastUpdated: new Date().toISOString(),
       }];
 
       writeFileSync(registryPath, JSON.stringify(registry, null, 2));
-      console.log('\u2713 Claude Code: logpipe registered as plugin. Restart Claude Code to pick it up.');
+      console.log('\u2713 Claude Code: logpeek registered as plugin. Restart Claude Code to pick it up.');
     });
 
   return program;
