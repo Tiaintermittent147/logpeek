@@ -1,6 +1,6 @@
 {
   "name": "logpipe",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Pipe mobile device logs to AI coding agents",
   "skills": [
     {

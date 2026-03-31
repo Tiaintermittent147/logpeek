@@ -2,7 +2,7 @@
 
 Pipe mobile device logs to AI coding agents.
 
-logpipe gives coding agents instant access to Android and iOS logs for debugging crashes, errors, and unexpected behavior in mobile apps.
+logpipe gives coding agents like Claude Code, Cursor, and Gemini CLI direct access to Android and iOS device logs.
 
 <p>
   <a href="https://www.npmjs.com/package/logpipe"><img src="https://img.shields.io/npm/v/logpipe?style=flat-square&color=e8a23e&label=npm" alt="npm version" /></a>

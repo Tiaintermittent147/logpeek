@@ -1,6 +1,6 @@
 {
   "name": "logpipe",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Pipe mobile device logs to AI coding agents",
   "type": "module",
   "main": "./dist/bin.js",
@@ -9,14 +9,17 @@
   },
   "files": [
     "dist",
-    "logpipe-plugin"
+    "logpipe-plugin",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mobile",
@@ -27,9 +30,22 @@
     "flutter",
     "logcat",
     "claude-code",
-    "ai-agent"
+    "ai-agent",
+    "coding-agent",
+    "debugging",
+    "cli",
+    "developer-tools"
   ],
+  "author": "nomanr",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nomanr/logpipe.git"
+  },
+  "homepage": "https://github.com/nomanr/logpipe",
+  "bugs": {
+    "url": "https://github.com/nomanr/logpipe/issues"
+  },
   "engines": {
     "node": ">=18"
   },
