@@ -3,14 +3,30 @@ import { DeviceDiscovery } from '../devices/discovery.js';
 import { collectAndroidLogs } from '../logs/android.js';
 import { collectIosLogs } from '../logs/ios.js';
 import { pickDevice } from './device-picker.js';
+import { isMacOS, hasCommand } from '../platform.js';
 
 export async function runLogs(shell: Shell, opts: LogOptions): Promise<void> {
+  const hasAdb = await hasCommand(shell, 'adb');
+  const hasXcrun = isMacOS() && await hasCommand(shell, 'xcrun');
+
+  if (!hasAdb && !hasXcrun) {
+    const tools = isMacOS()
+      ? 'adb (Android SDK Platform-Tools) or Xcode Command Line Tools (xcode-select --install)'
+      : 'adb (Android SDK Platform-Tools: https://developer.android.com/studio)';
+    throw new Error(`No device tools found. Install ${tools}`);
+  }
+
   const discovery = new DeviceDiscovery(shell);
   const devices = await discovery.list();
   const booted = devices.filter((d) => d.state === 'booted');
 
   if (booted.length === 0) {
-    throw new Error('No booted devices found. Start an emulator or simulator first.');
+    const hint = hasAdb && hasXcrun
+      ? 'Start an emulator or simulator first.'
+      : hasAdb
+        ? 'Start an Android emulator first.'
+        : 'Start an iOS simulator first.';
+    throw new Error(`No booted devices found. ${hint}`);
   }
 
   let filtered = booted;
