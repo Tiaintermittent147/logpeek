@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { filterByLevel, filterBySource, trimLines, parseLastDuration } from '../../../src/logs/filter.js';
+import { filterByLevel, filterBySource, filterByGrep, trimLines, parseLastDuration } from '../../../src/logs/filter.js';
 
 describe('parseLastDuration', () => {
   it('parses minutes', () => {
@@ -75,6 +75,36 @@ describe('filterBySource', () => {
     expect(result).toHaveLength(2);
     expect(result.some(l => l.includes('ReactNativeJS'))).toBe(false);
     expect(result.some(l => l.includes('flutter'))).toBe(false);
+  });
+});
+
+describe('filterByGrep', () => {
+  const lines = [
+    'I/MyApp: network request started',
+    'D/MyApp: parsing JSON response',
+    'E/MyApp: network error: timeout',
+    'I/MyApp: cache hit for key user_123',
+  ];
+
+  it('returns all lines when grep is undefined', () => {
+    expect(filterByGrep(lines, undefined)).toHaveLength(4);
+  });
+
+  it('filters lines containing the search term', () => {
+    const result = filterByGrep(lines, 'network');
+    expect(result).toHaveLength(2);
+    expect(result[0]).toContain('network request');
+    expect(result[1]).toContain('network error');
+  });
+
+  it('is case-insensitive', () => {
+    const result = filterByGrep(lines, 'JSON');
+    expect(result).toHaveLength(1);
+    expect(result[0]).toContain('parsing JSON');
+  });
+
+  it('returns empty when no match', () => {
+    expect(filterByGrep(lines, 'websocket')).toHaveLength(0);
   });
 });
 

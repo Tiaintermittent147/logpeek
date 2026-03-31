@@ -33,7 +33,8 @@ export function createProgram(): Command {
     .option('--platform <type>', 'platform: android, ios')
     .option('--lines <n>', 'max lines to output', '200')
     .option('--level <level>', 'minimum log level: verbose, debug, info, warn, error', 'verbose')
-    .option('--last <duration>', 'time window (e.g., 1m, 5m, 1h)', '5m');
+    .option('--last <duration>', 'time window (e.g., 1m, 5m, 1h)', '5m')
+    .option('--grep <pattern>', 'filter logs containing this text (case-insensitive)');
 
   program.hook('preAction', (_thisCommand, actionCommand) => {
     const opts = actionCommand.optsWithGlobals();
@@ -89,6 +90,7 @@ export function createProgram(): Command {
         level: opts.level as LogLevel,
         lines: parseInt(opts.lines as string, 10),
         last: opts.last as string,
+        grep: opts.grep as string | undefined,
       });
     });
 

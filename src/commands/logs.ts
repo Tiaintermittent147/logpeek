@@ -52,6 +52,7 @@ export async function runLogs(shell: Shell, opts: LogOptions): Promise<void> {
     framework: opts.framework,
     lines: opts.lines,
     last: opts.last,
+    grep: opts.grep,
   };
 
   let lines: string[];

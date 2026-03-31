@@ -37,4 +37,5 @@ export interface LogOptions {
   level: LogLevel;
   lines: number;
   last: string;
+  grep?: string;
 }

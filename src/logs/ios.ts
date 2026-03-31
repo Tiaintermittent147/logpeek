@@ -1,5 +1,5 @@
 import type { Shell, LogLevel, LogSource, Framework } from '../types.js';
-import { filterByLevel, filterBySource, trimLines } from './filter.js';
+import { filterByLevel, filterBySource, filterByGrep, trimLines } from './filter.js';
 
 export async function resolveProcessName(shell: Shell, udid: string, bundleId: string): Promise<string> {
   try {
@@ -64,6 +64,7 @@ interface CollectOptions {
   framework?: Framework;
   lines: number;
   last: string;
+  grep?: string;
 }
 
 export async function collectIosLogs(
@@ -86,5 +87,6 @@ export async function collectIosLogs(
 
   lines = filterByLevel(lines, opts.level, 'ios');
   lines = filterBySource(lines, opts.source, 'ios', opts.framework);
+  lines = filterByGrep(lines, opts.grep);
   return trimLines(lines, opts.lines);
 }

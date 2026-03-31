@@ -1,5 +1,5 @@
 import type { Shell, LogLevel, LogSource, Framework } from '../types.js';
-import { filterByLevel, filterBySource, trimLines, parseLastDuration } from './filter.js';
+import { filterByLevel, filterBySource, filterByGrep, trimLines, parseLastDuration } from './filter.js';
 
 interface LogcatBuildOptions {
   pid?: string;
@@ -32,6 +32,7 @@ interface CollectOptions {
   framework?: Framework;
   lines: number;
   last: string;
+  grep?: string;
 }
 
 export async function collectAndroidLogs(
@@ -68,5 +69,6 @@ export async function collectAndroidLogs(
 
   lines = filterByLevel(lines, opts.level, 'android');
   lines = filterBySource(lines, opts.source, 'android', opts.framework);
+  lines = filterByGrep(lines, opts.grep);
   return trimLines(lines, opts.lines);
 }

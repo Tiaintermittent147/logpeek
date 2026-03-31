@@ -95,6 +95,12 @@ export function filterBySource(
   );
 }
 
+export function filterByGrep(lines: string[], grep: string | undefined): string[] {
+  if (!grep) return lines;
+  const lower = grep.toLowerCase();
+  return lines.filter((line) => line.toLowerCase().includes(lower));
+}
+
 export function trimLines(lines: string[], max: number): string[] {
   if (lines.length <= max) return lines;
   return lines.slice(lines.length - max);
