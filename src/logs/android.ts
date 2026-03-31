@@ -14,15 +14,13 @@ export function buildLogcatArgs(deviceId: string, opts: LogcatBuildOptions): str
   }
 
   const since = new Date(Date.now() - opts.lastSeconds * 1000);
-  const formatted = since.toLocaleString('en-US', {
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-  }).replace(',', '');
-  args.push('-T', formatted);
+  const mm = String(since.getMonth() + 1).padStart(2, '0');
+  const dd = String(since.getDate()).padStart(2, '0');
+  const hh = String(since.getHours()).padStart(2, '0');
+  const min = String(since.getMinutes()).padStart(2, '0');
+  const ss = String(since.getSeconds()).padStart(2, '0');
+  const ms = String(since.getMilliseconds()).padStart(3, '0');
+  args.push('-T', `${mm}-${dd} ${hh}:${min}:${ss}.${ms}`);
 
   return args;
 }
