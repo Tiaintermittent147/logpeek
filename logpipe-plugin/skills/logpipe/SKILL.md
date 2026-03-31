@@ -10,7 +10,6 @@ description: Collect device logs from Android emulators and iOS simulators for d
 - App crashed or threw an exception
 - Feature is not working as expected
 - Need to see what the app logged during a specific action
-- After a failed driftx comparison or interaction, to understand why
 - Debugging network errors, state issues, or silent failures
 - User reports "it doesn't work" without details
 
