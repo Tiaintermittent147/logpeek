@@ -17,10 +17,12 @@ describe('buildLogcatArgs', () => {
     expect(args.some(a => a.startsWith('--pid'))).toBe(false);
   });
 
-  it('includes time filter', () => {
+  it('includes time filter in MM-DD HH:MM:SS.mmm format', () => {
     const args = buildLogcatArgs('emulator-5554', { pid: '123', lastSeconds: 120 });
-    const tFlag = args.findIndex(a => a === '-T');
-    expect(tFlag).toBeGreaterThan(-1);
+    const tIdx = args.findIndex(a => a === '-T');
+    expect(tIdx).toBeGreaterThan(-1);
+    const timestamp = args[tIdx + 1];
+    expect(timestamp).toMatch(/^\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}$/);
   });
 });
 
