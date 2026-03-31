@@ -6,6 +6,10 @@
     {
       "name": "logpipe",
       "path": "skills/logpipe/SKILL.md"
+    },
+    {
+      "name": "driftx",
+      "path": "skills/driftx/SKILL.md"
     }
   ]
 }
