@@ -1,5 +1,9 @@
 import { Command } from 'commander';
 import { createRequire } from 'module';
+import { existsSync, mkdirSync, readFileSync, rmSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { homedir } from 'node:os';
+import { fileURLToPath } from 'node:url';
 import { RealShell } from './shell.js';
 import { createLogger, setLogger } from './logger.js';
 import { runLogs } from './commands/logs.js';
@@ -68,6 +72,56 @@ export function createProgram(): Command {
     .action(async () => {
       const shell = new RealShell();
       await runDoctor(shell);
+    });
+
+  program
+    .command('init')
+    .description('Register logpipe with AI coding tools')
+    .action(() => {
+      const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+      const pluginSource = join(packageRoot, 'logpipe-plugin');
+
+      if (!existsSync(pluginSource)) {
+        console.error(`logpipe-plugin directory not found at ${pluginSource}`);
+        process.exitCode = 1;
+        return;
+      }
+
+      const pluginsDir = join(homedir(), '.claude', 'plugins');
+      const logpipePluginDir = join(pluginsDir, 'logpipe');
+      const registryPath = join(pluginsDir, 'installed_plugins.json');
+
+      mkdirSync(pluginsDir, { recursive: true });
+
+      if (existsSync(logpipePluginDir)) {
+        try { unlinkSync(logpipePluginDir); } catch {
+          console.error(`Could not remove existing ${logpipePluginDir}. Remove it manually and retry.`);
+          process.exitCode = 1;
+          return;
+        }
+      }
+      symlinkSync(pluginSource, logpipePluginDir);
+
+      const cacheDir = join(pluginsDir, 'cache', 'local', 'logpipe');
+      if (existsSync(cacheDir)) {
+        rmSync(cacheDir, { recursive: true, force: true });
+      }
+
+      let registry: { version: number; plugins: Record<string, unknown[]> } = { version: 2, plugins: {} };
+      try {
+        registry = JSON.parse(readFileSync(registryPath, 'utf-8'));
+      } catch {}
+
+      registry.plugins['logpipe@local'] = [{
+        scope: 'user',
+        installPath: logpipePluginDir,
+        version: pkg.version,
+        installedAt: new Date().toISOString(),
+        lastUpdated: new Date().toISOString(),
+      }];
+
+      writeFileSync(registryPath, JSON.stringify(registry, null, 2));
+      console.log('\u2713 Claude Code: logpipe registered as plugin. Restart Claude Code to pick it up.');
     });
 
   return program;
