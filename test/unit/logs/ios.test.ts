@@ -41,6 +41,44 @@ describe('collectIosLogs', () => {
     expect(lines.length).toBe(2);
   });
 
+  it('strips log show header lines', async () => {
+    const mockShell = {
+      exec: vi.fn().mockResolvedValue({
+        stdout: 'Timestamp               Ty Process[PID:TID]\n2026-03-31 10:00:00 Default com.example.MyApp: hello\n',
+        stderr: '',
+      }),
+    };
+
+    const lines = await collectIosLogs(mockShell, 'ABC-123', {
+      app: 'com.example.MyApp',
+      level: 'verbose',
+      source: 'all',
+      lines: 200,
+      last: '5m',
+    });
+
+    expect(lines.length).toBe(1);
+    expect(lines[0]).toContain('hello');
+  });
+
+  it('treats header-only output as empty (triggers crash fallback)', async () => {
+    const mockShell = {
+      exec: vi.fn()
+        .mockResolvedValueOnce({ stdout: 'Timestamp               Ty Process[PID:TID]\n', stderr: '' })
+        .mockResolvedValueOnce({ stdout: 'ReportCrash: com.example.MyApp crashed\n', stderr: '' }),
+    };
+
+    const lines = await collectIosLogs(mockShell, 'ABC-123', {
+      app: 'com.example.MyApp',
+      level: 'verbose',
+      source: 'all',
+      lines: 200,
+      last: '5m',
+    });
+
+    expect(lines.some(l => l.includes('crashed'))).toBe(true);
+  });
+
   it('widens to crash logs when no output', async () => {
     const mockShell = {
       exec: vi.fn()

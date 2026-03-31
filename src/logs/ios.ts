@@ -35,6 +35,16 @@ function buildCrashLogShowArgs(udid: string, last: string): string[] {
   ];
 }
 
+function stripLogShowHeaders(lines: string[]): string[] {
+  return lines.filter((l) => {
+    const trimmed = l.trim();
+    if (trimmed === '') return false;
+    if (trimmed.startsWith('Timestamp')) return false;
+    if (/^-+$/.test(trimmed)) return false;
+    return true;
+  });
+}
+
 interface CollectOptions {
   app: string;
   level: LogLevel;
@@ -52,13 +62,13 @@ export async function collectIosLogs(
   const args = buildLogShowArgs(udid, { app: opts.app, last: opts.last });
   const { stdout } = await shell.exec('xcrun', args, { timeout: 30000 });
 
-  let lines = stdout.split('\n').filter((l) => l.trim() !== '');
+  let lines = stripLogShowHeaders(stdout.split('\n'));
 
   if (lines.length === 0) {
     process.stderr.write('App is not running. Showing crash-related logs.\n');
     const crashArgs = buildCrashLogShowArgs(udid, opts.last);
     const crashResult = await shell.exec('xcrun', crashArgs, { timeout: 30000 });
-    lines = crashResult.stdout.split('\n').filter((l) => l.trim() !== '');
+    lines = stripLogShowHeaders(crashResult.stdout.split('\n'));
   }
 
   lines = filterByLevel(lines, opts.level, 'ios');
